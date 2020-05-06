@@ -1,62 +1,17 @@
 package optifine;
 
 import com.google.common.base.Optional;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import javax.vecmath.Matrix4f;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.model.ModelBanner;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBat;
-import net.minecraft.client.model.ModelBlaze;
-import net.minecraft.client.model.ModelBook;
-import net.minecraft.client.model.ModelChest;
-import net.minecraft.client.model.ModelDragon;
-import net.minecraft.client.model.ModelEnderCrystal;
-import net.minecraft.client.model.ModelEnderMite;
-import net.minecraft.client.model.ModelGhast;
-import net.minecraft.client.model.ModelGuardian;
-import net.minecraft.client.model.ModelHorse;
-import net.minecraft.client.model.ModelHumanoidHead;
-import net.minecraft.client.model.ModelLeashKnot;
-import net.minecraft.client.model.ModelMagmaCube;
-import net.minecraft.client.model.ModelOcelot;
-import net.minecraft.client.model.ModelRabbit;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.ModelSign;
-import net.minecraft.client.model.ModelSilverfish;
-import net.minecraft.client.model.ModelSkeletonHead;
-import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.model.ModelSquid;
-import net.minecraft.client.model.ModelWitch;
-import net.minecraft.client.model.ModelWither;
-import net.minecraft.client.model.ModelWolf;
+import net.minecraft.client.model.*;
 import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.entity.RenderBoat;
-import net.minecraft.client.renderer.entity.RenderLeashKnot;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderMinecart;
-import net.minecraft.client.renderer.entity.RendererLivingEntity;
-import net.minecraft.client.renderer.tileentity.RenderEnderCrystal;
-import net.minecraft.client.renderer.tileentity.RenderItemFrame;
-import net.minecraft.client.renderer.tileentity.RenderWitherSkull;
-import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityEnderChestRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.tileentity.*;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.resources.DefaultResourcePack;
 import net.minecraft.client.resources.ResourcePackRepository;
@@ -73,14 +28,21 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.LongHashMap;
+import net.minecraft.util.Matrix4f;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
-public class Reflector
-{
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+
+public class Reflector {
     private static boolean logForge = logEntry("*** Reflector Forge ***");
     public static ReflectorClass Attributes = new ReflectorClass("net.minecraftforge.client.model.Attributes");
     public static ReflectorField Attributes_DEFAULT_BAKED_FORMAT = new ReflectorField(Attributes, "DEFAULT_BAKED_FORMAT");
@@ -88,7 +50,7 @@ public class Reflector
     public static ReflectorClass BlamingTransformer = new ReflectorClass("net.minecraftforge.fml.common.asm.transformers.BlamingTransformer");
     public static ReflectorMethod BlamingTransformer_onCrash = new ReflectorMethod(BlamingTransformer, "onCrash");
     public static ReflectorClass ChunkWatchEvent_UnWatch = new ReflectorClass("net.minecraftforge.event.world.ChunkWatchEvent$UnWatch");
-    public static ReflectorConstructor ChunkWatchEvent_UnWatch_Constructor = new ReflectorConstructor(ChunkWatchEvent_UnWatch, new Class[] {ChunkCoordIntPair.class, EntityPlayerMP.class});
+    public static ReflectorConstructor ChunkWatchEvent_UnWatch_Constructor = new ReflectorConstructor(ChunkWatchEvent_UnWatch, new Class[]{ChunkCoordIntPair.class, EntityPlayerMP.class});
     public static ReflectorClass CoreModManager = new ReflectorClass("net.minecraftforge.fml.relauncher.CoreModManager");
     public static ReflectorMethod CoreModManager_onCrash = new ReflectorMethod(CoreModManager, "onCrash");
     public static ReflectorClass DimensionManager = new ReflectorClass("net.minecraftforge.common.DimensionManager");
@@ -359,11 +321,11 @@ public class Reflector
                 return;
             }
 
-            method.invoke((Object)null, p_callVoid_1_);
+            method.invoke(null, p_callVoid_1_);
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callVoid_0_, p_callVoid_1_);
+            handleException(throwable, null, p_callVoid_0_, p_callVoid_1_);
         }
     }
 
@@ -379,13 +341,13 @@ public class Reflector
             }
             else
             {
-                Boolean obool = (Boolean)method.invoke((Object)null, p_callBoolean_1_);
+                Boolean obool = (Boolean) method.invoke(null, p_callBoolean_1_);
                 return obool.booleanValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callBoolean_0_, p_callBoolean_1_);
+            handleException(throwable, null, p_callBoolean_0_, p_callBoolean_1_);
             return false;
         }
     }
@@ -402,13 +364,13 @@ public class Reflector
             }
             else
             {
-                Integer integer = (Integer)method.invoke((Object)null, p_callInt_1_);
+                Integer integer = (Integer) method.invoke(null, p_callInt_1_);
                 return integer.intValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callInt_0_, p_callInt_1_);
+            handleException(throwable, null, p_callInt_0_, p_callInt_1_);
             return 0;
         }
     }
@@ -425,13 +387,13 @@ public class Reflector
             }
             else
             {
-                Float f = (Float)method.invoke((Object)null, p_callFloat_1_);
+                Float f = (Float) method.invoke(null, p_callFloat_1_);
                 return f.floatValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callFloat_0_, p_callFloat_1_);
+            handleException(throwable, null, p_callFloat_0_, p_callFloat_1_);
             return 0.0F;
         }
     }
@@ -448,13 +410,13 @@ public class Reflector
             }
             else
             {
-                Double d0 = (Double)method.invoke((Object)null, p_callDouble_1_);
+                Double d0 = (Double) method.invoke(null, p_callDouble_1_);
                 return d0.doubleValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callDouble_0_, p_callDouble_1_);
+            handleException(throwable, null, p_callDouble_0_, p_callDouble_1_);
             return 0.0D;
         }
     }
@@ -471,13 +433,13 @@ public class Reflector
             }
             else
             {
-                String s = (String)method.invoke((Object)null, p_callString_1_);
+                String s = (String) method.invoke(null, p_callString_1_);
                 return s;
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callString_0_, p_callString_1_);
+            handleException(throwable, null, p_callString_0_, p_callString_1_);
             return null;
         }
     }
@@ -494,13 +456,13 @@ public class Reflector
             }
             else
             {
-                Object object = method.invoke((Object)null, p_call_1_);
+                Object object = method.invoke(null, p_call_1_);
                 return object;
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_call_0_, p_call_1_);
+            handleException(throwable, null, p_call_0_, p_call_1_);
             return null;
         }
     }
@@ -669,7 +631,7 @@ public class Reflector
 
     public static Object getFieldValue(ReflectorField p_getFieldValue_0_)
     {
-        return getFieldValue((Object)null, p_getFieldValue_0_);
+        return getFieldValue(null, p_getFieldValue_0_);
     }
 
     public static Object getFieldValue(Object p_getFieldValue_0_, ReflectorField p_getFieldValue_1_)
@@ -724,7 +686,7 @@ public class Reflector
 
     public static boolean setFieldValue(ReflectorField p_setFieldValue_0_, Object p_setFieldValue_1_)
     {
-        return setFieldValue((Object)null, p_setFieldValue_0_, p_setFieldValue_1_);
+        return setFieldValue(null, p_setFieldValue_0_, p_setFieldValue_1_);
     }
 
     public static boolean setFieldValue(Object p_setFieldValue_0_, ReflectorField p_setFieldValue_1_, Object p_setFieldValue_2_)
@@ -753,7 +715,7 @@ public class Reflector
     public static boolean postForgeBusEvent(ReflectorConstructor p_postForgeBusEvent_0_, Object... p_postForgeBusEvent_1_)
     {
         Object object = newInstance(p_postForgeBusEvent_0_, p_postForgeBusEvent_1_);
-        return object == null ? false : postForgeBusEvent(object);
+        return object != null && postForgeBusEvent(object);
     }
 
     public static boolean postForgeBusEvent(Object p_postForgeBusEvent_0_)
@@ -772,7 +734,7 @@ public class Reflector
             }
             else
             {
-                Object object1 = call(object, EventBus_post, new Object[] {p_postForgeBusEvent_0_});
+                Object object1 = call(object, EventBus_post, p_postForgeBusEvent_0_);
 
                 if (!(object1 instanceof Boolean))
                 {
