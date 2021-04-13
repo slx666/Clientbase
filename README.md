@@ -1,5 +1,5 @@
 # Clientbase
-A free to use minecraft client base!
+A free to use minecraft client base made for easily modding minecraft!
 
 ## How to use this clientbase?
 
